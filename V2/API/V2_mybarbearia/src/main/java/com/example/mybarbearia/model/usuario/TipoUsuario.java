@@ -2,7 +2,7 @@ package com.example.mybarbearia.model.usuario;
 
 public enum TipoUsuario {
     ADMIN("admin"),
-    ClIENTE("cliente"),
+    CLIENTE("cliente"),
     BARBEIRO("barbeiro"),
     ATENDENTE("atendente");
 
