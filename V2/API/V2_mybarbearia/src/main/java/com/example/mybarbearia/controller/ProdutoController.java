@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,6 +21,7 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroProduto dados, UriComponentsBuilder componentsBuilder) {
         var produto = new Produto(dados);
         repository.save(produto);
@@ -36,6 +38,7 @@ public class ProdutoController {
 
     @PutMapping
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizaProduto dados) {
         var produto = repository.getReferenceById(dados.id());
         produto.atualizarInformacoes(dados);
@@ -45,6 +48,7 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity apagarLogico(@PathVariable Long id) {
         var produto = repository.getReferenceById(id);
         System.out.printf(produto.getNome());
@@ -54,6 +58,7 @@ public class ProdutoController {
     }
     @DeleteMapping("/apagar/{id}")
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity apagarDefinitivo(@PathVariable Long id) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

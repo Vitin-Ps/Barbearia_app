@@ -30,18 +30,4 @@ public class AtendimentoController {
         var atendimentoDados= atendimento.atualizarDados(dados);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/teste")
-    @Transactional
-    public ResponseEntity teste() {
-//        List<String> duracoes = new ArrayList<>();
-//        duracoes.add("30:00");
-//        duracoes.add("12:00");
-//        duracoes.add("01:00:00");
-//        var date = StringEmMinutos.duracaoTotal(duracoes);
-//        var horario = StringEmMinutos.converterDateParaString(date);
-//        System.out.println(horario);
-        LocalDateTime data = LocalDateTime.parse("2023-09-01T14:30:00");
-        atendimento.agendar(new DadosAgendamentoAtendimento(1L, 1L, data));
-        return ResponseEntity.ok().build();
-    }
 }
