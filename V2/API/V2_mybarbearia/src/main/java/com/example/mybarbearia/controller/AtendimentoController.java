@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -26,8 +27,11 @@ public class AtendimentoController {
 
     @PutMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'ATENDENTE')")
     public ResponseEntity alterarAtendimento(@RequestBody @Valid DadosAtualizaAtendimento dados) {
         var atendimentoDados= atendimento.atualizarDados(dados);
         return ResponseEntity.ok().build();
     }
+
+
 }

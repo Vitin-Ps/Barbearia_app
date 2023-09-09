@@ -1,5 +1,6 @@
 package com.example.mybarbearia.infra.exception;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;
+import java.security.PublicKey;
 
 @RestControllerAdvice
 public class TratadorDeErros {
@@ -54,6 +56,11 @@ public class TratadorDeErros {
     @ExceptionHandler(ValidacaoExeption.class)
     public ResponseEntity tratarRegraDeNegocio(ValidacaoExeption ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity tokenExpirado(TokenExpiredException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Expirado: " + ex.getLocalizedMessage());
     }
 
     private record DadosErroValidacao(String campo, String menssagem) {

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,7 +24,7 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrat(@RequestBody @Valid DadosCadastroCliente dados, UriComponentsBuilder componentsBuilder) {
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroCliente dados, UriComponentsBuilder componentsBuilder) {
         var cliente = new Cliente(dados);
         repository.save(cliente);
 
@@ -32,6 +33,7 @@ public class ClienteController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<DadosListagemCliente>> listar(@PageableDefault(size = 10, page = 0, sort = {"nome"})Pageable pageable) {
         var page = repository.findByAtivoTrue(pageable).map(DadosListagemCliente::new);
         return ResponseEntity.ok(page);
@@ -39,6 +41,7 @@ public class ClienteController {
 
     @PutMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity alterar(@RequestBody @Valid DadosAtualizaCliente dados) {
         var cliente = repository.getReferenceById(dados.id());
         cliente.atualizaInformacoes(dados);
@@ -47,6 +50,7 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity apagarLogico(@PathVariable Long id) {
         var cliente = repository.getReferenceByIdAndAtivoTrue(id);
         cliente.apagaLogico();
@@ -55,6 +59,7 @@ public class ClienteController {
 
     @DeleteMapping("/apagar/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity apagarDefinitivo(@PathVariable Long id) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

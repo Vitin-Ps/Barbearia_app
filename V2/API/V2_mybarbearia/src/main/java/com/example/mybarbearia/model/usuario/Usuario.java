@@ -85,4 +85,8 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void setSenha(String novaSenhaCodigifcada) {
+        this.senha = senha;
+    }
 }

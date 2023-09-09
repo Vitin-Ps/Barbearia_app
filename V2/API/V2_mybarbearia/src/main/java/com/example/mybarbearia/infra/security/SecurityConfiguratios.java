@@ -30,7 +30,7 @@ public class SecurityConfiguratios {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login/cadAdmin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/login/cadCliente").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/login/cadFuncionario").hasAnyRole("ADMIN", "FUNCIONARIO")
+                        .requestMatchers(HttpMethod.POST, "/login/cadFuncionario").hasAnyRole("ADMIN", "BARBEIRO", "ATENDENTE")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
