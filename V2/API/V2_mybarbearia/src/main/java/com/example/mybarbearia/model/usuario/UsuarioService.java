@@ -29,13 +29,4 @@ public class UsuarioService {
         var novaSenhaCodificada = new BCryptPasswordEncoder().encode(dados.novaSenha());
         usuario.setSenha(novaSenhaCodificada);
     }
-
-    public String gerarTokenUnico(TipoUsuario tipoUsuario, int usosRestantes) {
-        var usuario = usuarioRepository.getReferenceByLoginAndTipo(String.valueOf(tipoUsuario), tipoUsuario);
-        System.out.println(usuario);
-        var autenticacaoToken = new UsernamePasswordAuthenticationToken(usuario.getLogin(), "2222");
-        var autenticacao = manager.authenticate(autenticacaoToken);
-        var tokenJWT = tokenService.gerarTokenUnico((Usuario) autenticacao.getPrincipal(), usosRestantes);
-        return "?token=" + tokenJWT + "&" + "tipoUsuario=" + tipoUsuario;
-    }
 }
