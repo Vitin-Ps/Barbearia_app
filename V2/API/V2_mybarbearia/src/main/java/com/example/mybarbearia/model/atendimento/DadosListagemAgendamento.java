@@ -2,7 +2,6 @@ package com.example.mybarbearia.model.atendimento;
 
 import com.example.mybarbearia.model.cliente.DadosListagemCliente;
 import com.example.mybarbearia.model.funcionario.DadosListagemFuncionario;
-import com.example.mybarbearia.model.recibo.DadosDetalhamentoRecibo;
 import com.example.mybarbearia.model.recibo.DadosListagemRecibo;
 
 import java.time.LocalDateTime;
