@@ -1,7 +1,6 @@
 package com.example.mybarbearia.repository;
 
-import com.example.mybarbearia.model.recibo.DadosCadastroRecibo;
-import com.example.mybarbearia.model.recibo.Recibo;
+import com.example.mybarbearia.domain.recibo.Recibo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

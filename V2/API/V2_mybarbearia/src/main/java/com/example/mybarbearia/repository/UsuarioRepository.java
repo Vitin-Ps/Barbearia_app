@@ -1,7 +1,7 @@
 package com.example.mybarbearia.repository;
 
-import com.example.mybarbearia.model.usuario.TipoUsuario;
-import com.example.mybarbearia.model.usuario.Usuario;
+import com.example.mybarbearia.domain.usuario.TipoUsuario;
+import com.example.mybarbearia.domain.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,4 +13,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario getReferenceByLogin(String login);
 
     Usuario getReferenceByLoginAndTipo(String user, TipoUsuario tipoUsuario);
+
+    boolean existsByLogin(String login);
 }

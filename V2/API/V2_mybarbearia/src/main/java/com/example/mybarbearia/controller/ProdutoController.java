@@ -1,6 +1,6 @@
 package com.example.mybarbearia.controller;
 
-import com.example.mybarbearia.model.produto.*;
+import com.example.mybarbearia.domain.produto.*;
 import com.example.mybarbearia.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

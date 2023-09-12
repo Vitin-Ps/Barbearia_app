@@ -1,7 +1,7 @@
 package com.example.mybarbearia.repository;
 
-import com.example.mybarbearia.model.atendimento.Atendimento;
-import com.example.mybarbearia.model.atendimento.StatusAtendimento;
+import com.example.mybarbearia.domain.atendimento.Atendimento;
+import com.example.mybarbearia.domain.atendimento.StatusAtendimento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

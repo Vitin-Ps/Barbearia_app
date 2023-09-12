@@ -1,16 +1,14 @@
 package com.example.mybarbearia.controller;
 
-import com.example.mybarbearia.model.atendimento.AtendimentoService;
-import com.example.mybarbearia.model.atendimento.DadosAgendamentoAtendimento;
-import com.example.mybarbearia.model.atendimento.DadosAtualizaAtendimento;
+import com.example.mybarbearia.domain.atendimento.AtendimentoService;
+import com.example.mybarbearia.domain.atendimento.DadosAgendamentoAtendimento;
+import com.example.mybarbearia.domain.atendimento.DadosAtualizaAtendimento;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/atendimento")

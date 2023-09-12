@@ -2,9 +2,9 @@ package com.example.mybarbearia.controller;
 
 import com.example.mybarbearia.infra.security.DadosTokenJWT;
 import com.example.mybarbearia.infra.security.TokenService;
-import com.example.mybarbearia.model.usuario.DadosAutenticacao;
-import com.example.mybarbearia.model.usuario.TipoUsuario;
-import com.example.mybarbearia.model.usuario.Usuario;
+import com.example.mybarbearia.domain.usuario.DadosAutenticacao;
+import com.example.mybarbearia.domain.usuario.TipoUsuario;
+import com.example.mybarbearia.domain.usuario.Usuario;
 import com.example.mybarbearia.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +59,4 @@ public class AuthenticationController {
         repository.save(usuario);
         return ResponseEntity.ok("Admin Cadastrado!!!");
     }
-
 }

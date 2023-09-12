@@ -1,7 +1,6 @@
 package com.example.mybarbearia.repository;
 
-import com.example.mybarbearia.model.produto.Produto;
-import io.micrometer.observation.ObservationFilter;
+import com.example.mybarbearia.domain.produto.Produto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

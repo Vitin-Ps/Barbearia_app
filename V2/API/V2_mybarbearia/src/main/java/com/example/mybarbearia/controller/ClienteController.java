@@ -1,10 +1,10 @@
 package com.example.mybarbearia.controller;
 
-import com.example.mybarbearia.model.cliente.Cliente;
-import com.example.mybarbearia.model.cliente.DadosAtualizaCliente;
-import com.example.mybarbearia.model.cliente.DadosListagemCliente;
+import com.example.mybarbearia.domain.cliente.Cliente;
+import com.example.mybarbearia.domain.cliente.DadosAtualizaCliente;
+import com.example.mybarbearia.domain.cliente.DadosListagemCliente;
 import com.example.mybarbearia.repository.ClienteRepository;
-import com.example.mybarbearia.model.cliente.DadosCadastroCliente;
+import com.example.mybarbearia.domain.cliente.DadosCadastroCliente;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

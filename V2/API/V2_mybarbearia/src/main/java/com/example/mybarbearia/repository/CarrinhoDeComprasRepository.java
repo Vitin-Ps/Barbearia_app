@@ -1,6 +1,6 @@
 package com.example.mybarbearia.repository;
 
-import com.example.mybarbearia.model.carrinhodecompras.CarrinhoDeCompras;
+import com.example.mybarbearia.domain.carrinhodecompras.CarrinhoDeCompras;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

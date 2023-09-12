@@ -1,9 +1,8 @@
 package com.example.mybarbearia.controller;
 
-import com.example.mybarbearia.model.estoque.DadosAtualizaEstoque;
-import com.example.mybarbearia.model.estoque.DadosListagemEstoque;
+import com.example.mybarbearia.domain.estoque.DadosAtualizaEstoque;
+import com.example.mybarbearia.domain.estoque.DadosListagemEstoque;
 import com.example.mybarbearia.repository.EstoqueRepository;
-import com.example.mybarbearia.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
