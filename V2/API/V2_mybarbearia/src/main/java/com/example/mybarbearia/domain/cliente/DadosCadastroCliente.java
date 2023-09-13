@@ -1,6 +1,7 @@
 package com.example.mybarbearia.domain.cliente;
 
 import com.example.mybarbearia.domain.endereco.DadosEndereco;
+import com.example.mybarbearia.domain.usuario.DadosAutenticacao;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,8 @@ public record DadosCadastroCliente(
         String telefone,
         @NotNull(message = "Endereço {dados.obrigatorio}")
         @Valid
-        DadosEndereco endereco
+        DadosEndereco endereco,
+        @NotNull(message = "Dados do Usuário {dados.obrigatorio}")
+        DadosAutenticacao dadosAutenticacao
 ) {
 }

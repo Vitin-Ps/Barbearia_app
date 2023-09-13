@@ -2,8 +2,10 @@ package com.example.mybarbearia.controller;
 
 import com.example.mybarbearia.domain.funcionario.*;
 import com.example.mybarbearia.domain.funcionario.validacao.ValidaCadastroFuncionario;
+import com.example.mybarbearia.domain.usuario.DadosCadastroUsuario;
 import com.example.mybarbearia.domain.usuario.TipoUsuario;
 import com.example.mybarbearia.domain.usuario.Usuario;
+import com.example.mybarbearia.domain.usuario.UsuarioService;
 import com.example.mybarbearia.repository.FuncionarioRepository;
 import com.example.mybarbearia.repository.UsuarioRepository;
 import com.example.mybarbearia.services.token.TokenTransparenteService;
@@ -32,6 +34,8 @@ public class FuncionarioController {
     private TokenTransparenteService tokenTransparenteService;
     @Autowired
     private List<ValidaCadastroFuncionario> validadorCadastro;
+    @Autowired
+    private UsuarioService usuarioService;
 
 
     @PostMapping("cadBarbeiro")
@@ -42,12 +46,7 @@ public class FuncionarioController {
             tokenTransparenteService.validaToken(dados.rawToken());
             var funcionario = new Funcionario(dados, Cargo.BARBEIRO);
             funcionarioRepository.save(funcionario);
-            String login;
-            var senhaCodificada = new BCryptPasswordEncoder().encode(dados.dadosAutenticacao().senha());
-            if(dados.dadosAutenticacao().login() == null) login = dados.email();
-            else login = dados.dadosAutenticacao().login();
-            var usuario = new Usuario(login, senhaCodificada, TipoUsuario.BARBEIRO);
-            usuarioRepository.save(usuario);
+            usuarioService.cadastroUsuario(new DadosCadastroUsuario(dados.dadosAutenticacao(), dados.email(), TipoUsuario.BARBEIRO));
             var uri = componentsBuilder.path("/funcionario/{id}").buildAndExpand(funcionario.getId()).toUri();
             return ResponseEntity.created(uri).body(new DadosListagemFuncionario(funcionario));
         } catch (Exception ex) {
@@ -63,13 +62,7 @@ public class FuncionarioController {
             tokenTransparenteService.validaToken(dados.rawToken());
             var funcionario = new Funcionario(dados, Cargo.ATENDENTE);
             funcionarioRepository.save(funcionario);
-            String login;
-            var senhaCodificada = new BCryptPasswordEncoder().encode(dados.dadosAutenticacao().senha());
-            if(dados.dadosAutenticacao().login() == null) login = dados.email();
-            else login = dados.dadosAutenticacao().login();
-            var usuario = new Usuario(login, senhaCodificada, TipoUsuario.ATENDENTE);
-            System.out.println("aquiiii email:" + login);
-            usuarioRepository.save(usuario);
+            usuarioService.cadastroUsuario(new DadosCadastroUsuario(dados.dadosAutenticacao(), dados.email(), TipoUsuario.ATENDENTE));
             var uri = componentsBuilder.path("/funcionario/{id}").buildAndExpand(funcionario.getId()).toUri();
             return ResponseEntity.created(uri).body(new DadosListagemFuncionario(funcionario));
         } catch (Exception ex) {

@@ -3,8 +3,10 @@ package com.example.mybarbearia.controller;
 import com.example.mybarbearia.domain.cliente.Cliente;
 import com.example.mybarbearia.domain.cliente.DadosAtualizaCliente;
 import com.example.mybarbearia.domain.cliente.DadosListagemCliente;
+import com.example.mybarbearia.domain.usuario.*;
 import com.example.mybarbearia.repository.ClienteRepository;
 import com.example.mybarbearia.domain.cliente.DadosCadastroCliente;
+import com.example.mybarbearia.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,30 +23,38 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/cliente")
 public class ClienteController {
     @Autowired
-    private ClienteRepository repository;
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroCliente dados, UriComponentsBuilder componentsBuilder) {
         var cliente = new Cliente(dados);
-        repository.save(cliente);
-
+        clienteRepository.save(cliente);
+        usuarioService.cadastroUsuario(new DadosCadastroUsuario(dados.dadosAutenticacao(), dados.email(), TipoUsuario.CLIENTE));
         var uri = componentsBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosListagemCliente(cliente));
+
     }
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Page<DadosListagemCliente>> listar(@PageableDefault(size = 10, page = 0, sort = {"nome"})Pageable pageable) {
-        var page = repository.findByAtivoTrue(pageable).map(DadosListagemCliente::new);
-        return ResponseEntity.ok(page);
+    @PostMapping("cadAdmin")
+    public ResponseEntity CadastrarAdmin(@RequestBody @Valid DadosAutenticacao dados) {
+        var senhaCodificada = new BCryptPasswordEncoder().encode(dados.senha());
+        var usuario = new Usuario(dados.login(), senhaCodificada, TipoUsuario.ADMIN);
+        usuarioRepository.save(usuario);
+        return ResponseEntity.ok("Admin Cadastrado!!!");
     }
+
+
 
     @PutMapping
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity alterar(@RequestBody @Valid DadosAtualizaCliente dados) {
-        var cliente = repository.getReferenceById(dados.id());
+        var cliente = clienteRepository.getReferenceById(dados.id());
         cliente.atualizaInformacoes(dados);
         return  ResponseEntity.ok(new DadosListagemCliente(cliente));
     }
@@ -52,7 +63,7 @@ public class ClienteController {
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity apagarLogico(@PathVariable Long id) {
-        var cliente = repository.getReferenceByIdAndAtivoTrue(id);
+        var cliente = clienteRepository.getReferenceByIdAndAtivoTrue(id);
         cliente.apagaLogico();
         return ResponseEntity.noContent().build();
     }
@@ -61,13 +72,13 @@ public class ClienteController {
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity apagarDefinitivo(@PathVariable Long id) {
-        repository.deleteById(id);
+        clienteRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        var cliente = repository.getReferenceByIdAndAtivoTrue(id);
+        var cliente = clienteRepository.getReferenceByIdAndAtivoTrue(id);
         return ResponseEntity.ok(new DadosListagemCliente(cliente));
     }
 }

@@ -1,11 +1,10 @@
 package com.example.mybarbearia.controller;
 
+import com.example.mybarbearia.domain.usuario.*;
 import com.example.mybarbearia.infra.security.DadosTokenJWT;
 import com.example.mybarbearia.infra.security.TokenService;
-import com.example.mybarbearia.domain.usuario.DadosAutenticacao;
-import com.example.mybarbearia.domain.usuario.TipoUsuario;
-import com.example.mybarbearia.domain.usuario.Usuario;
 import com.example.mybarbearia.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +25,10 @@ public class AuthenticationController {
     private UsuarioRepository repository;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private UsuarioService usuarioService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     @PostMapping
@@ -36,27 +39,25 @@ public class AuthenticationController {
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 
-    @PostMapping("cadCliente")
-        public ResponseEntity cadastrarCliente(@RequestBody @Valid DadosAutenticacao dados) {
-            var senhaCodificada = new BCryptPasswordEncoder().encode(dados.senha());
-            var usuario = new Usuario(dados.login(), senhaCodificada, TipoUsuario.CLIENTE);
-            repository.save(usuario);
-            return ResponseEntity.ok("Cliente Cadastrado!!!");
-        }
-
-    @PostMapping("cadFuncionario")
-    public ResponseEntity cadastrarFuncionario(@RequestBody @Valid DadosAutenticacao dados) {
-        var senhaCodificada = new BCryptPasswordEncoder().encode(dados.senha());
-        var usuario = new Usuario(dados.login(), senhaCodificada, TipoUsuario.BARBEIRO);
-        repository.save(usuario);
-        return ResponseEntity.ok("Barbeiro Cadastrado!!!");
-    }
-
-    @PostMapping("cadAdmin")
+    @PostMapping("cadastrar")
     public ResponseEntity CadastrarAdmin(@RequestBody @Valid DadosAutenticacao dados) {
         var senhaCodificada = new BCryptPasswordEncoder().encode(dados.senha());
         var usuario = new Usuario(dados.login(), senhaCodificada, TipoUsuario.ADMIN);
         repository.save(usuario);
         return ResponseEntity.ok("Admin Cadastrado!!!");
     }
+
+    @PostMapping("/recuperar")
+    @Transactional
+    public ResponseEntity recuperarsenha(@RequestBody @Valid DadosAlteracaoSenha dados) {
+        try {
+          usuarioService.alterarSenha(dados);
+
+        } catch (Exception ex) {
+            throw new RuntimeException("erro:" + ex);
+        }
+        return ResponseEntity.ok("Senha Alterada");
+    }
+
+
 }

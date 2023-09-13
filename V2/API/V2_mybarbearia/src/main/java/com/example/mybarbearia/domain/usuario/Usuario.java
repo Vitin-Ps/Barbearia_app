@@ -77,6 +77,6 @@ public class Usuario implements UserDetails {
     }
 
     public void setSenha(String novaSenhaCodigifcada) {
-        this.senha = senha;
+        this.senha = novaSenhaCodigifcada;
     }
 }

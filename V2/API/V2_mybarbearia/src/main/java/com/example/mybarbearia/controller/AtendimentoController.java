@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/atendimento")
 public class AtendimentoController {
     @Autowired
-    AtendimentoService atendimento; // classe onde toda lógica sera realizada
+    private AtendimentoService atendimento; // classe onde toda lógica sera realizada
 
     @PostMapping
     @Transactional

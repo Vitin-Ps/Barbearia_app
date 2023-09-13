@@ -58,7 +58,6 @@ public class TokenTransparenteService {
     }
 
     public DadosTokenPublico readPublicData(String rawToken) {
-        System.out.println("aqui: " + rawToken);
         var bytes = Base64.getDecoder().decode(rawToken);
         var rawTokenDecoded = new String(bytes);
         String[] tokenParts = rawTokenDecoded.split(":");

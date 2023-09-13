@@ -28,11 +28,9 @@ public class RawTokenController {
     @PostMapping("gerar")
     public ResponseEntity gerarToken (@RequestBody @Valid DadosCriacaoToken dados) {
         var user = usuarioRepository.getReferenceByLogin(dados.login());
-        System.out.println("chegouS");
         if(user == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         var token = tokenTransparenteService.gerarToken(user);
-        System.out.println("Token Aqui: " + token);
         return ResponseEntity.ok(new DadosToken(token));
     }
 }

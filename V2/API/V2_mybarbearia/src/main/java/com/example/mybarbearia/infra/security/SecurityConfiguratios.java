@@ -28,11 +28,12 @@ public class SecurityConfiguratios {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/login/cadAdmin").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/login/cadCliente").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login/cadastrar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login/recuperar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/token/gerar").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/funcionario/cadBarbeiro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/funcionario/cadAtendente").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/cliente").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
