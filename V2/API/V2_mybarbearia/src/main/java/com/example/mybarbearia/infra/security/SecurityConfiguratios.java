@@ -33,6 +33,7 @@ public class SecurityConfiguratios {
                         .requestMatchers(HttpMethod.POST, "/token/gerar").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/funcionario/cadBarbeiro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/funcionario/cadAtendente").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
