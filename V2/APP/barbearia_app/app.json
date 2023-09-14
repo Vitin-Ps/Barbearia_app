@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "barbearia-app",
-    "slug": "barbearia-app",
+    "name": "barbearia_app",
+    "slug": "barbearia_app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
