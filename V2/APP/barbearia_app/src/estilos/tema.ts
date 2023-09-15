@@ -2,13 +2,20 @@ import { extendTheme } from "native-base"
 
 export const TEMAS = extendTheme(
     {
+        body: {
+            corFundo: '#202020'
+        },
         colors: {
             marrom: {
-                normal: '#B08E51'
+                normal: '#B08E51',
+                normalClaro: '#E1C8B9',
+                claro: '#E4DCD3',
+                muitoClaro: '#E8E6E2'
             },
             cinza: {
                 cinzaBlack: '#202020',
-                cinzaEscuro: '#343434'
+                cinzaEscuro: '#343434',
+                cinzaClaro: '#808080'
             },
             branca: {
                 normal: '#FFFFFF'
@@ -16,6 +23,9 @@ export const TEMAS = extendTheme(
             laranja: {
                 normal: '#ED9209'
             }
+        },
+        estiloFontes: {
+            Arial:'Arial'
         },
         fontSizes: {
             xs: 12,

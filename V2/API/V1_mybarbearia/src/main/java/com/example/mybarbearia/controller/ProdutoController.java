@@ -47,9 +47,7 @@ public class ProdutoController {
     @Transactional
     public ResponseEntity apagarLogico(@PathVariable Long id) {
         var produto = repository.getReferenceById(id);
-        System.out.printf(produto.getNome());
         produto.excluirLogico();
-        System.out.println(produto.getAtivo());
         return ResponseEntity.noContent().build();
     }
     @DeleteMapping("/apagar/{id}")
