@@ -22,7 +22,7 @@ export default function Login() {
             flex={1}
             p={5}
             h={{
-            base: "1000px",
+            base: "100px",
             lg: "auto"
             }} behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
