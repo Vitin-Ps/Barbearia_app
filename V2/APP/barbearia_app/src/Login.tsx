@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Icon, Image, Input, Link, Stack, Switch, Text, VStack } from "native-base";
+import { Box, Image, KeyboardAvoidingView,Text } from "native-base";
 import { TEMAS } from "./estilos/tema";
 import Logo from './assets/images/Logo.png';
 import { Titulo } from "./componentes/Titulo";
@@ -9,24 +9,29 @@ import { EstadoClick } from "./componentes/EstadoClick";
 import { EntradaTexto } from "./componentes/EntradaTexto";
 import { EntradaSenha } from "./componentes/EntradaSenha";
 import Botao from "./componentes/Botao";
+import { Platform } from "react-native";
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
     return (
-        <VStack
+        <KeyboardAvoidingView
             backgroundColor={TEMAS.body.corFundo}
             alignItems="center"
             justifyContent="center"
             flex={1}
             p={5}
-        >
+            h={{
+            base: "1000px",
+            lg: "auto"
+            }} behavior={Platform.OS === "ios" ? "padding" : "height"}
+            >
             <Image source={Logo} alt="Logo Arctos" />
             <Titulo>
                 Bem Vindo
             </Titulo>
-
-            <Box>
+            
+                <Box>
                 <EntradaTexto
                     icon="person"
                     color={TEMAS.colors.marrom.normal}
@@ -36,15 +41,19 @@ export default function Login() {
                     color={TEMAS.colors.marrom.normal}
                     placeholder="Senha"
                 />
-            </Box>
+                </Box>
+          
+            
             <Botao 
                 isLoading={isLoading} 
                 onPress={() => EstadoClick( setIsLoading)}
             >
+                
                 <Text color="white" fontSize="20px">
                     Entrar
                 </Text>
             </Botao>
+            
 
             <SwitchComTexto>
                 <Text>Lembrar meu Login</Text>
@@ -58,6 +67,6 @@ export default function Login() {
                 <Text>Não tem Cadastro? </Text>
                 <Text>Cadastre-se aqui!</Text>
             </TextoComLink>
-        </VStack>
+        </KeyboardAvoidingView>
     )
 }

@@ -5,7 +5,7 @@ import { TEMAS } from "../estilos/tema";
 interface InputProps { // descreve pro´ridades que podem estár no entrada texto
     icon?: string,
     color?: string
-    placeholder: string;
+    placeholder?: string;
 }
 
 
