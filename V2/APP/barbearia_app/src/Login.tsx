@@ -34,12 +34,11 @@ export default function Login() {
                 <Box>
                 <EntradaTexto
                     icon="person"
-                    color={TEMAS.colors.marrom.normal}
                     placeholder="Login"
                 />
-                <EntradaSenha
-                    color={TEMAS.colors.marrom.normal}
+                <EntradaTexto
                     placeholder="Senha"
+                    senha={true}
                 />
                 </Box>
           

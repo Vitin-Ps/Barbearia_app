@@ -10,7 +10,8 @@ export const TEMAS = extendTheme(
                 normal: '#B08E51',
                 normalClaro: '#E1C8B9',
                 claro: '#E4DCD3',
-                muitoClaro: '#E8E6E2'
+                muitoClaro: '#E8E6E2',
+                escuro: '#F0C26E'
             },
             cinza: {
                 cinzaBlack: '#202020',
