@@ -10,6 +10,8 @@ interface InputProps { // descreve pro´ridades que podem estár no entrada text
     placeholder?: string;
     mt?: string;
     senha?: boolean;
+    value?: string;
+    onChangeText?: (text: string) => void;
 }
 
 
@@ -20,7 +22,9 @@ export function EntradaTexto({
     color,
     placeholder,
     mt,
-    senha
+    senha,
+    value,
+    onChangeText
 }: InputProps): JSX.Element {
 
     const [show, setShow] = useState(false);
@@ -35,6 +39,10 @@ export function EntradaTexto({
             bgColor={TEMAS.colors.cinza.cinzaEscuro}
             color='white'
             shadow={3}
+            placeholder={placeholder}
+            value={value}
+            onChangeText={onChangeText}
+
             type={senha ? (show ? "text" : "password") : "text"
             }
             InputLeftElement={
@@ -59,7 +67,6 @@ export function EntradaTexto({
                     />
                 </Pressable>
             }
-            placeholder={placeholder}
         />
     )
 }
