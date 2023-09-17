@@ -6,17 +6,20 @@ const sessoes = [
             {
                 id: 1,
                 icon: 'person',
-                placeholder: 'Nome'
+                placeholder: 'Nome',
+                name: 'nome'
             },
             {
                 id: 2,
                 icon: 'mail',
-                placeholder: 'E-mail'
+                placeholder: 'E-mail',
+                name: 'email'
             },
             {
                 id: 3,
                 icon: 'call',
-                placeholder: 'Telefone'
+                placeholder: 'Telefone',
+                name: 'telefone'
             }
         ]
     },
@@ -27,37 +30,44 @@ const sessoes = [
             {
                 id: 1,
                 icon: 'home',
-                placeholder: 'Logradouro'
+                placeholder: 'Logradouro',
+                name: 'logradouro'
             },
             {
                 id: 2,
                 icon: 'map',
-                placeholder: 'Bairro'
+                placeholder: 'Bairro',
+                name: 'bairro'
             },
             {
                 id: 3,
                 icon: 'business',
-                placeholder: 'Cidade'
+                placeholder: 'Cidade',
+                name: 'cidade'
             },
             {
                 id: 4,
                 icon: 'pin',
-                placeholder: 'Número'
+                placeholder: 'Número',
+                name: 'numero'
             },
             {
                 id: 5,
                 icon: 'add-circle-outline',
-                placeholder: 'Complemento'
+                placeholder: 'Complemento',
+                name: 'complemento'
             },
             {
                 id: 6,
                 icon: 'location',
-                placeholder: 'CEP'
+                placeholder: 'CEP',
+                name: 'cep'
             },
             {
                 id: 7,
                 icon: 'globe',
-                placeholder: 'UF'
+                placeholder: 'UF',
+                name: 'uf'
             },
 
         ]
@@ -69,17 +79,20 @@ const sessoes = [
             {
                 id: 1,
                 icon: 'person',
-                placeholder: 'Login'
+                placeholder: 'Login',
+                name: 'login'
             },
             {
                 id: 2,
                 placeholder: 'Senha',
-                senha: true
+                senha: true,
+                name: 'senha'
             },
             {
                 id: 3,
                 placeholder: 'Repita Sua Senha',
-                senha: true
+                senha: true,
+                name: 'confirmaSenha'
             }
         ]
     }
