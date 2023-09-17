@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { Box, ScrollView, Text, } from "native-base";
 import { TEMAS } from "./estilos/tema";
@@ -11,111 +11,112 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 export default function Cadastro() {
 
     const [numSessao, setNumSessao] = useState(0);
-    const [sessaoAnterior, setSessaoAnterior] = useState(-1);
-    const [dados, setDados] = useState({} as any); // {} --> vai ser um obejto e any --> qualque coisa 
+    const [estadoSessao, setEstadoSessao] = useState(false);
+    const [dados, setDados] = useState({} as any); 
+    const inputsCarregados = useRef(false);
 
-    useEffect(() => {
-        function teste() {  // Renomeada a função
-            console.log("Entrei no cadastro --> ns: " + numSessao)
-            console.log("Entrei no cadastro --> s: " + sessaoAnterior)
-        }
-        teste();  // Chamando a função correta
-    }, []);
+    // useEffect(() => {
+    //     function teste() {  // Renomeada a função
+    //     }
+    //     teste();  // Chamando a função correta
+    // }, []);
+
     function avancarSessao() {
         if (numSessao < sessoes.length - 1) {
-            setSessaoAnterior(sessaoAnterior + 1);  // Sessão anterior é a atual antes de avançar
-            setNumSessao(numSessao + 1);
+          setNumSessao(numSessao + 1);
+          setEstadoSessao(false);
+          inputsCarregados.current = false; // Reset da flag
         } else {
-            return;
+          return;
         }
-    }
+      }
     
-    function voltarSessao() {
-        if(numSessao == sessoes.length - 1) {
-            setSessaoAnterior(sessoes.length - 1)
-        } 
-        // else {
-        //     setSessaoAnterior(sessaoAnterior - 1)
-        // }
+      function voltarSessao() {
         if (numSessao > 0) {
-            setNumSessao(numSessao - 1);
+          setNumSessao(numSessao - 1);
+          setEstadoSessao(false);
+          inputsCarregados.current = false; // Reset da flag
         } else {
-            return;
+          return;
         }
-    }
-
+      }
     
+      function atualizarDados(id: string, valor: string) {
+        setDados({ ...dados, [id]: valor });
+      }
+    
+      useEffect(() => {
+        if (inputsCarregados.current === false) {
+          // Se os inputs ainda não foram carregados, muda o estado
+          setEstadoSessao(true);
+          inputsCarregados.current = true; // Atualiza a flag
+        }
+      }, [numSessao]);
     
 
 
-    return (
-        <ScrollView
-            flex={1}
-            bgColor={TEMAS.body.corFundo}>
-            <KeyboardAwareScrollView
-                contentContainerStyle={{ flexGrow: 1 }}
-                extraScrollHeight={30}
-                enableOnAndroid={true}
+   // Restante do seu código...
 
+return (
+    <ScrollView
+        flex={1}
+        bgColor={TEMAS.body.corFundo}>
+        <KeyboardAwareScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            extraScrollHeight={30}
+            enableOnAndroid={true}
+        >
+            <ScrollView
+                flex={1}
+                p={5}
+                backgroundColor={TEMAS.body.corFundo}
             >
-                <ScrollView
-                    flex={1}
-                    p={5}
-                    backgroundColor={TEMAS.body.corFundo}
+                <Titulo
+                    fontSize={30}
+                    color={TEMAS.body.corFonte}
                 >
-                    <Titulo
-                        fontSize={30}
-                        color={TEMAS.body.corFonte}
-                    >
-                        {sessoes[numSessao].titulo}
-                    </Titulo>
-
-                    <Box>
-                        {
-                            sessoes[numSessao]?.entradaTexto?.map(entrada => {
-                                // console.log("nst: " + numSessao + "\nnumDados: " + sessoes[numSessao]?.id)
-                                const valorCampo = numSessao > sessaoAnterior ? "stringoriginal" : (dados[entrada.placeholder] || '');
-
-                                return < EntradaTexto
-                                    icon={entrada.icon}
-                                    placeholder={entrada.placeholder}
-                                    senha={entrada.senha}
-                                    key={entrada.id}
-                                    value={valorCampo}
-                                    mt="16"
-
-                                />
-                            })
-                        }
-                    </Box>
-                    <Box flexDirection="row" justifyContent="center">
-                        {numSessao > 0 && (
-                            <Botao
-                                onPress={() => voltarSessao()}
-                                bgColor={TEMAS.colors.marrom.escuro}
-                            >
-                                <Text color="white" fontSize="20px">
-                                    Voltar
-                                </Text>
-                            </Botao>
-                        )}
-                        <Botao onPress={() => avancarSessao()}>
+                    {sessoes[numSessao].titulo}
+                </Titulo>
+  
+                <Box>
+                    {
+                        sessoes[numSessao]?.entradaTexto?.map(entrada => {
+                            const valorTexto = estadoSessao === false ? "" : dados[entrada.placeholder]
+                            return < EntradaTexto
+                                icon={entrada.icon}
+                                placeholder={entrada.placeholder}
+                                senha={entrada.senha}
+                                key={entrada.id}
+                                value={valorTexto}
+                                onChangeText={(text) => atualizarDados(entrada.name, text)}
+                                mt="16"
+                            />
+                        })
+                    }
+                </Box>
+               
+                <Box flexDirection="row" justifyContent="center">
+                    {numSessao > 0 && (
+                        <Botao
+                            onPress={() => voltarSessao()}
+                            bgColor={TEMAS.colors.marrom.escuro}
+                        >
                             <Text color="white" fontSize="20px">
-                                {numSessao === 2 ? 'Finalizar' : 'Avançar'}
+                                Voltar
                             </Text>
                         </Botao>
-                        {
-                            console.log("ns: " + numSessao)
-                            
-                        }
-                        {
-                            console.log("st: " + sessaoAnterior)
-                        }
-                    </Box>
-                </ScrollView>
-            </KeyboardAwareScrollView>
-        </ScrollView>
-
-    )
+                    )}
+                    <Botao onPress={() => avancarSessao()}>
+                        <Text color="white" fontSize="20px">
+                            {numSessao === 2 ? 'Finalizar' : 'Avançar'}
+                        </Text>
+                    </Botao>
+                   
+                </Box>
+            </ScrollView>
+        </KeyboardAwareScrollView>
+    </ScrollView>
+  );
+  
 
 }
