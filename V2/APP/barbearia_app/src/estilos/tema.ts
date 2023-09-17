@@ -3,7 +3,8 @@ import { extendTheme } from "native-base"
 export const TEMAS = extendTheme(
     {
         body: {
-            corFundo: '#202020'
+            corFundo: '#202020',
+            corFonte: '#FFFFFF'
         },
         colors: {
             marrom: {

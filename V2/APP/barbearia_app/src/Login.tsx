@@ -1,4 +1,4 @@
-import { Box, Image, KeyboardAvoidingView,Text } from "native-base";
+import { Box, Image, KeyboardAvoidingView, Text } from "native-base";
 import { TEMAS } from "./estilos/tema";
 import Logo from './assets/images/Logo.png';
 import { Titulo } from "./componentes/Titulo";
@@ -11,7 +11,7 @@ import { EntradaSenha } from "./componentes/EntradaSenha";
 import Botao from "./componentes/Botao";
 import { Platform } from "react-native";
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
 
     return (
@@ -22,16 +22,16 @@ export default function Login() {
             flex={1}
             p={5}
             h={{
-            base: "100px",
-            lg: "auto"
+                base: "100px",
+                lg: "auto"
             }} behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
+        >
             <Image source={Logo} alt="Logo Arctos" />
             <Titulo>
                 Bem Vindo
             </Titulo>
-            
-                <Box>
+
+            <Box>
                 <EntradaTexto
                     icon="person"
                     placeholder="Login"
@@ -40,29 +40,33 @@ export default function Login() {
                     placeholder="Senha"
                     senha={true}
                 />
-                </Box>
-          
-            
-            <Botao 
-                isLoading={isLoading} 
-                onPress={() => EstadoClick( setIsLoading)}
+            </Box>
+
+
+            <Botao
+                isLoading={isLoading}
+                onPress={() => EstadoClick(setIsLoading)}
             >
-                
+
                 <Text color="white" fontSize="20px">
                     Entrar
                 </Text>
             </Botao>
-            
+
 
             <SwitchComTexto>
                 <Text>Lembrar meu Login</Text>
             </SwitchComTexto>
 
-            <TextoComLink>
+            <TextoComLink >
                 <Text>Esqueceu sua senha?</Text>
                 <Text> Clique aqui</Text>
             </TextoComLink>
-            <TextoComLink>
+            <TextoComLink
+            onPress={() => {
+                navigation.navigate('Cadastro')
+            }}
+            >
                 <Text>Não tem Cadastro? </Text>
                 <Text>Cadastre-se aqui!</Text>
             </TextoComLink>

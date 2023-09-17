@@ -46,6 +46,7 @@ export default function Cadastro() {
                 >
                     <Titulo
                         fontSize={30}
+                        color={TEMAS.body.corFonte}
                     >
                         {sessoes[numSessao].titulo}
                     </Titulo>
