@@ -13,13 +13,7 @@ export default function Cadastro() {
     const [numSessao, setNumSessao] = useState(0);
     const [estadoSessao, setEstadoSessao] = useState(false);
     const [dados, setDados] = useState({} as any); 
-    const inputsCarregados = useRef(false);
-
-    // useEffect(() => {
-    //     function teste() {  // Renomeada a função
-    //     }
-    //     teste();  // Chamando a função correta
-    // }, []);
+    const inputsCarregados = useRef(false); // usado para mudar informções sem ter que renderizar a página novamente
 
     function avancarSessao() {
         if (numSessao < sessoes.length - 1) {
@@ -46,7 +40,7 @@ export default function Cadastro() {
       }
     
       useEffect(() => {
-        if (inputsCarregados.current === false) {
+        if (inputsCarregados.current === false) { // quando ele estiver false vai carregar apagina tda no false e depois vai mudar para o true 
           // Se os inputs ainda não foram carregados, muda o estado
           setEstadoSessao(true);
           inputsCarregados.current = true; // Atualiza a flag
