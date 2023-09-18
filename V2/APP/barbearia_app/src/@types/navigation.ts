@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 export type ListaTelas = {
     Login: undefined;
     Cadastro: undefined;
+    Home: undefined;
 }
 
 
