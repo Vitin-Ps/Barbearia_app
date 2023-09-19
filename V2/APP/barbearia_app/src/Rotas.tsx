@@ -12,11 +12,7 @@ export default function Rotas() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-          name="Tabs"
-          component={Tabs as React.FC}
-          options={{ headerShown: false}}
-        />
+
         <Stack.Screen
           name="Login"
           component={Login as React.FC}
@@ -38,7 +34,12 @@ export default function Rotas() {
             headerTintColor: TEMAS.colors.marrom.normal
           }}
         />
-        
+        <Stack.Screen
+          name="Tabs"
+          component={Tabs as React.FC}
+          options={{ headerShown: false }}
+        />
+
 
 
       </Stack.Navigator>

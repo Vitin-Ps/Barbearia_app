@@ -14,6 +14,12 @@ import { Platform } from "react-native";
 export default function Login({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
 
+
+    function entrar() {
+        EstadoClick(setIsLoading)
+        navigation.replace("Tabs")
+    }
+
     return (
         <KeyboardAvoidingView
             backgroundColor={TEMAS.body.corFundo}
@@ -45,7 +51,7 @@ export default function Login({ navigation }) {
 
             <Botao
                 isLoading={isLoading}
-                onPress={() => EstadoClick(setIsLoading)}
+                onPress={() => entrar()}
             >
 
                 <Text color="white" fontSize="20px">

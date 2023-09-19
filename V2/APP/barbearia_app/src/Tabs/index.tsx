@@ -3,6 +3,9 @@ import { TEMAS } from "../estilos/tema";
 
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Home from "./Home";
+import Historico from "./Historico";
+import Carrinho from "./Carrinho";
+import Perfil from "./Perfil";
 
 
 const Tab = createBottomTabNavigator();
@@ -19,6 +22,23 @@ export const mainTabs = [
         name: 'Home',
         component: Home,
         icon: 'home'
+    },
+    {
+        name: 'Historico',
+        component : Historico,
+        icon: 'time-outline'
+    }
+    ,
+    {
+        name: 'Carrinho',
+        component : Carrinho,
+        icon: 'cart-outline'
+    }
+    ,
+    {
+        name: 'Perfil',
+        component : Perfil,
+        icon: 'person'
     }
 ]
 
@@ -45,7 +65,7 @@ export default function Tabs() {
                             ),
                             tabBarStyle: {
                                 backgroundColor: TEMAS.colors.cinza.cinzaEscuro,
-                                height: 60  // Defina a altura da barra
+                                height: 50  // Defina a altura da barra
                             },
                             tabBarLabelStyle: {
                                 height: 0,  // Oculta o rótulo

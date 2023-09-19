@@ -20,21 +20,21 @@ export default function BotaoComImagem({
     return (
         <Button
             bgColor={TEMAS.colors.cinza.cinzaEscuro}
+            m={5}
+            p={5}
+            width={100}
+            height={100}
+            flex={1}
             borderRadius={10}
             shadow={10}
-            width={150}
-            height={150}
-            flex={1}
-            m={5}
             {...rest}
 
         >
-            <HStack>
-                <Image source={source} alt={alt} />
-                <Text
-                    color={TEMAS.body.corFonte}
-                >{texto}</Text>
-            </HStack>
+            <Image source={source} alt={alt} m="auto" width={50} height={50}/>
+            <Text
+                m="auto"
+                color={TEMAS.body.corFonte}
+            >{texto}</Text>
         </Button>
     )
 
